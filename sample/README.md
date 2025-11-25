@@ -80,4 +80,3 @@ streamlit run src/dashboard.py
 - **4 modern data engineering tools**: Kafka, DuckDB, Prefect, Docker
 - **Streaming + Batch architecture**: Lambda pattern for real-time and historical data
 - **Idempotent pipeline**: Safe to re-run, only processes new data
-- **Production-grade**: Error handling, retries, structured logging, workflow orchestration
