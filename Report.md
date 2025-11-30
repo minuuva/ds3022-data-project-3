@@ -14,7 +14,7 @@
 
 ## Analysis
 
-Offer a brief analysis of the data with your findings. Keep it to one brief, clear, and meaningful paragraph.
+Being the 5 major Python data-science packages, commit trends over the past three and six months show distinct differences in development momentum. Pandas demonstrates the strongest recent period of growth with an 88% increase in commits over the past three months and a 54% increase over the past six months. This suggests an active development and maintenance of the package. Numpy also displays a rapid growth of 78% over the past three months, but a decline of -18% over the past six months, implying that the growth is very new and release event motivated rather than long-term. Scikit-learn also demonstrates the steady growth trend with 52% growth over the past three months and 28% growth over the past six months, which is typical for normal maintenance and development post-prototype. On the other hand, Matplotlib shows great decline with -57% growth in the past three months and -39% growth in the past six months. This is consistent with the fact that the package is maturing and in no immediate need for updates or new features; it's stabilizing. Plotly has the most lack of growth with -100% growth in the past three months, which indicates either private or slowing development in the repository.
 
 
 ## Plot / Visualization
