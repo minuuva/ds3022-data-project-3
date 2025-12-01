@@ -167,13 +167,7 @@ def visualize_daily_commits():
         plt.gca().spines['right'].set_visible(False)
 
         plt.title("Commits per Day for scikit-learn, pandas, matplotlib, plotly, and numpy", y=1.05, x=0.43, fontsize=10.4)
-        # plt.text(5.75, 1, "pandas,", size=12, color='#274c77')
-        # plt.text(9.5, 1, "matplotlib,", size=12, color='#d62828')
-        # plt.text(14.5, 1, "plotly,", size=12, color='#f77f00')
-        # plt.text(17.5, 1, "and ", size=12, color='black')
-        # plt.text(19.5, 1, "numpy", size=12, color='#fcbf49')
 
-        # plt.text(-3.8, 100, "(commits)", size=10)
         plt.legend()
         plt.ylabel("commits")
         plt.xlabel("days in the year")
@@ -232,13 +226,7 @@ def visualize_weekly_commits():
         plt.gca().spines['right'].set_visible(False)
 
         plt.title("Commits per Week for scikit-learn, pandas, matplotlib, plotly, and numpy", y=1.05, x=0.43, fontsize=10.4)
-        # plt.text(5.75, 1, "pandas,", size=12, color='#274c77')
-        # plt.text(9.5, 1, "matplotlib,", size=12, color='#d62828')
-        # plt.text(14.5, 1, "plotly,", size=12, color='#f77f00')
-        # plt.text(17.5, 1, "and ", size=12, color='black')
-        # plt.text(19.5, 1, "numpy", size=12, color='#fcbf49')
 
-        # plt.text(-3.8, 100, "(commits)", size=10)
         plt.legend()
         plt.ylabel("commits")
         plt.xlabel("weeks in the year")
@@ -297,13 +285,7 @@ def visualize_monthly_commits():
         plt.gca().spines['right'].set_visible(False)
 
         plt.title("Commits per Month for scikit-learn, pandas, matplotlib, plotly, and numpy", y=1.05, x=0.43, fontsize=10.4)
-        # plt.text(5.75, 1, "pandas,", size=12, color='#274c77')
-        # plt.text(9.5, 1, "matplotlib,", size=12, color='#d62828')
-        # plt.text(14.5, 1, "plotly,", size=12, color='#f77f00')
-        # plt.text(17.5, 1, "and ", size=12, color='black')
-        # plt.text(19.5, 1, "numpy", size=12, color='#fcbf49')
 
-        # plt.text(-3.8, 100, "(commits)", size=10)
         plt.legend()
         plt.ylabel("commits")
         plt.xlabel("months in the year")
@@ -385,11 +367,6 @@ def compare_trends(package):
         
         threemo_perc_change = ((threemo_trend - pre_threemo_trend)/pre_threemo_trend) * 100
         sixmo_perc_change = ((sixmo_trend - pre_sixmo_trend)/pre_sixmo_trend) * 100
-        # print(f"{package}")
-        # print(f"PRE three month period: {pre_threemo_trend},\nlast three months: {threemo_trend}")
-        # print(f"    - percent change for three months: {(threemo_perc_change):.2f}%")
-        # print(f"PRE six month period: {pre_sixmo_trend},\nlast six months: {sixmo_trend}")
-        # print(f"    - percent change for three months: {(sixmo_perc_change):.2f}%")
 
         result = (threemo_perc_change, sixmo_perc_change)
         return result
@@ -422,7 +399,6 @@ def plot_separate_percent_changes(dict_perc_change):
 
     #6 MONTH PLOT
     plt.clf()
-    # plt.figure(figsize=(10, 5))
     colors = ['#2a9d8f' if v > 0 else '#e76f51' for v in six_month]
 
     plt.barh(y, six_month, color=colors)
@@ -436,7 +412,31 @@ def plot_separate_percent_changes(dict_perc_change):
     plt.tight_layout()
     plt.savefig("./Carissa-Kayla/visualizations/sixmo_perc_change.png")
 
+def unique_commiters():
+    con=duckdb.connect(database="packages.duckdb", read_only=True)
+    logger.info("Connected to duckdb for obtaining unique commiters per package")
 
+    try:
+        unique_commiters_df = con.execute("""SELECT package, COUNT(DISTINCT author) AS unique_commiters
+                                            FROM commits
+                                            GROUP BY package;""").df()
+        logger.info("Fetched unique commiters per package.")
+        print(unique_commiters_df)
+
+        plt.figure(figsize=(10,6))
+        plt.bar(unique_commiters_df['package'], unique_commiters_df['unique_commiters'], color='lightgreen')
+        plt.xlabel("Package Name")
+        plt.ylabel("Number of Unique Commiters")
+        plt.title("Unique Commiters per Package")
+        # plt.legend(labels=["Total Commiters","Unique Commiters"], loc='upper right')
+        plt.gca().spines['right'].set_visible(False)
+        plt.gca().spines['top'].set_visible(False)
+        plt.gca().spines['left'].set_visible(False)
+        plt.savefig('./Carissa-Kayla/visualizations/unique_commiters_per_package.png')
+        logger.info("Saved unique commiters bar chart as unique_commiters_per_package.png.")
+
+    except Exception as e:
+        logger.error(f"An error occurred during unique commiters obtaining: {e}")
 
 if __name__ == "__main__":
     packages = ["scikit-learn", "pandas", "matplotlib", "plotly", "numpy"]
@@ -444,24 +444,26 @@ if __name__ == "__main__":
     analyze_commits()
     print("\n")
     
-    visualize_hourly_commits()
-    print("hourly visualization in hourly_commits.png")
-    visualize_daily_commits()
-    print("daily visualization in daily_commits.png")
-    visualize_weekly_commits()
-    print("weekly visualization in weekly_commits.png")
-    visualize_monthly_commits()
-    print("monthly visualization in monthly_commits.png\n")
+    # visualize_hourly_commits()
+    # print("hourly visualization in hourly_commits.png")
+    # visualize_daily_commits()
+    # print("daily visualization in daily_commits.png")
+    # visualize_weekly_commits()
+    # print("weekly visualization in weekly_commits.png")
+    # visualize_monthly_commits()
+    # print("monthly visualization in monthly_commits.png\n")
 
-    for package in packages:
-        get_last1000_commit_users(package)
-    print("\n")
+    # for package in packages:
+    #     get_last1000_commit_users(package)
+    # print("\n")
 
-    dict_perc_change = {}
-    for package in packages:
-        result = compare_trends(package)
-        dict_perc_change[package] = result
-        print("\n")
-    plot_separate_percent_changes(dict_perc_change)
+    # dict_perc_change = {}
+    # for package in packages:
+    #     result = compare_trends(package)
+    #     dict_perc_change[package] = result
+    #     print("\n")
+    # plot_separate_percent_changes(dict_perc_change)
+
+    unique_commiters()
 
     print("\n")
