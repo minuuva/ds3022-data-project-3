@@ -102,13 +102,6 @@ def visualize_hourly_commits():
         plt.gca().spines['right'].set_visible(False)
 
         plt.title("Commits per Hour for scikit-learn, pandas, matplotlib, plotly, and numpy", y=1.05, x=0.43, fontsize=10.4)
-        # plt.text(5.75, 3130, "pandas,", size=12, color='#274c77')
-        # plt.text(9.5, 3130, "matplotlib,", size=12, color='#d62828')
-        # plt.text(14.5, 3130, "plotly,", size=12, color='#f77f00')
-        # plt.text(17.5, 3130, "and ", size=12, color='black')
-        # plt.text(19.5, 3130, "numpy", size=12, color='#fcbf49')
-
-        # plt.text(-3.8, 2750, "(commits)", size=10)
         plt.legend()
         plt.ylabel("commits")
         plt.xlabel("hours in the day")
@@ -428,7 +421,6 @@ def unique_commiters():
         plt.xlabel("Package Name")
         plt.ylabel("Number of Unique Commiters")
         plt.title("Unique Commiters per Package")
-        # plt.legend(labels=["Total Commiters","Unique Commiters"], loc='upper right')
         plt.gca().spines['right'].set_visible(False)
         plt.gca().spines['top'].set_visible(False)
         plt.gca().spines['left'].set_visible(False)
@@ -444,25 +436,25 @@ if __name__ == "__main__":
     analyze_commits()
     print("\n")
     
-    # visualize_hourly_commits()
-    # print("hourly visualization in hourly_commits.png")
-    # visualize_daily_commits()
-    # print("daily visualization in daily_commits.png")
-    # visualize_weekly_commits()
-    # print("weekly visualization in weekly_commits.png")
-    # visualize_monthly_commits()
-    # print("monthly visualization in monthly_commits.png\n")
+    visualize_hourly_commits()
+    print("hourly visualization in hourly_commits.png")
+    visualize_daily_commits()
+    print("daily visualization in daily_commits.png")
+    visualize_weekly_commits()
+    print("weekly visualization in weekly_commits.png")
+    visualize_monthly_commits()
+    print("monthly visualization in monthly_commits.png\n")
 
-    # for package in packages:
-    #     get_last1000_commit_users(package)
-    # print("\n")
+    for package in packages:
+        get_last1000_commit_users(package)
+    print("\n")
 
-    # dict_perc_change = {}
-    # for package in packages:
-    #     result = compare_trends(package)
-    #     dict_perc_change[package] = result
-    #     print("\n")
-    # plot_separate_percent_changes(dict_perc_change)
+    dict_perc_change = {}
+    for package in packages:
+        result = compare_trends(package)
+        dict_perc_change[package] = result
+        print("\n")
+    plot_separate_percent_changes(dict_perc_change)
 
     unique_commiters()
 
